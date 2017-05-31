@@ -1,0 +1,7 @@
+custom_buku_buku:
+    resource: "@CustomBukuBundle/Resources/config/routing/buku.yml"
+    prefix:   /buku
+
+custom_buku_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CustomBukuBundle:Default:index }
