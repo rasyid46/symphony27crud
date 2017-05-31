@@ -1,0 +1,21 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+lucky_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Lucky:edit" }
+    
+lucky_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Lucky:delete" }
+    
+lucky_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Lucky:new" }
+    
+lucky_show:
+    path:     /show/
+    defaults: { _controller: "AppBundle:Lucky:show" } 
+    
+ 
