@@ -17,6 +17,9 @@ lucky_delete:
 lucky_new:
     path:     /new
     defaults: { _controller: "AppBundle:Lucky:new" }
+lucky_upload:
+    path:     /upload
+    defaults: { _controller: "AppBundle:Lucky:upload" }    
     
 lucky_show:
     path:     /show/

@@ -26,9 +26,6 @@ class BookType extends AbstractType {
                 ->add('publisher', 'text')
                 ->add('summary', 'text')
                 ->add('brochure', 'file', array('label' => 'Brochure (PDF file)'))
-                ->add('save', 'submit', array('label' => 'Create BOOK'))
-                ->getForm();
-        // ...
         ;
     }
 

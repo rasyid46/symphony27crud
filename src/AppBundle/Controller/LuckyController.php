@@ -27,7 +27,6 @@ class LuckyController extends Controller {
      */
     public function numberAction() {
         $number = mt_rand(0, 100);
-
         return new Response(
                 '<html><body>Lucky number: ' . $number . '</body></html>'
         );
@@ -38,10 +37,9 @@ class LuckyController extends Controller {
      *
      */
     public function showAction() {
-          
         $repository = $this->getDoctrine()->getRepository('AppBundle:Book');
         $entities = $repository->findAll();
-//  $entities = $repository->find(1);
+        //  $entities = $repository->find(1);
         return $this->render('lucky/show.html.twig', array(
                     'entities' => $entities,
         ));
@@ -51,7 +49,6 @@ class LuckyController extends Controller {
      * @Route("/lucky/create")
      */
     public function createAction() {
-
         $Book = new Book();
         $Book->setAuthor('Keyboard');
         $Book->setName('Sule');
@@ -60,13 +57,10 @@ class LuckyController extends Controller {
         $Book->setPublisher('Gramed');
         $Book->setSummary('OKe');
         $em = $this->getDoctrine()->getManager();
-
         // tells Doctrine you want to (eventually) save the Product (no queries yet)
         $em->persist($Book);
-
         // actually executes the queries (i.e. the INSERT query)
         $em->flush();
-
         return new Response('Saved new product with id ' . $Book->getId());
     }
 
@@ -74,17 +68,11 @@ class LuckyController extends Controller {
      * @Route("/lucky/new")
      */
     public function newAction(Request $request) {
-
-
-
         // create a task and give it some dummy data for this example
         $task = new Book();
         $task->setName('Write a blog post');
         $task->setNo(99);
         $task->setBrochure('oke');
-//        $task->setDueDate(new \DateTime('tomorrow'));
-
-        
         $form = $this->createFormBuilder($task)
                 ->add('no', 'text')
                 ->add('name', 'text')
@@ -94,7 +82,6 @@ class LuckyController extends Controller {
                 ->add('summary', 'text')
                 ->add('save', 'submit', array('label' => 'Create BOOK'))
                 ->getForm();
-
         if (!empty($_POST)) {
             $no = $_POST['form']['no'];
             $name = $_POST['form']['name'];
@@ -102,7 +89,6 @@ class LuckyController extends Controller {
             $language = $_POST['form']['language'];
             $publisher = $_POST['form']['publisher'];
             $summary = $_POST['form']['summary'];
-
             $Book = new Book();
             $Book->setAuthor($author);
             $Book->setName($name);
@@ -114,7 +100,6 @@ class LuckyController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $validator = $this->get('validator');
             $errors = $validator->validate($Book);
-
             if (count($errors) > 0) {
                 /*
                  * Uses a __toString method on the $errors variable which is a
@@ -126,7 +111,6 @@ class LuckyController extends Controller {
                         ->getFlashBag()
                         ->add('error', $errorsString)
                 ;
-
                 return $this->redirectToRoute('lucky_new');
             }
             // tells Doctrine you want to (eventually) save the Product (no queries yet)
@@ -146,12 +130,9 @@ class LuckyController extends Controller {
      */
     public function editAction(Request $request) {
         $id = $request->get('id');
-
 // create a task and give it some dummy data for this example
         $repository = $this->getDoctrine()->getRepository('AppBundle:Book');
-
         $entities = $repository->find($id);
-
         $form = $this->createFormBuilder($entities)
                 ->add('no', 'text')
                 ->add('name', 'text')
@@ -168,7 +149,6 @@ class LuckyController extends Controller {
             $language = $_POST['form']['language'];
             $publisher = $_POST['form']['publisher'];
             $summary = $_POST['form']['summary'];
-
             $em = $this->getDoctrine()->getManager();
             $Book = $em->getRepository('AppBundle:Book')->find($id);
             $Book->setAuthor($author);
@@ -177,14 +157,10 @@ class LuckyController extends Controller {
             $Book->setLanguage($language);
             $Book->setPublisher($publisher);
             $Book->setSummary($summary);
-
-
             // tells Doctrine you want to (eventually) save the Product (no queries yet)
             $em->persist($Book);
-
             // actually executes the queries (i.e. the INSERT query)
             $em->flush();
-
             return $this->redirectToRoute('lucky_show');
         }
         return $this->render('lucky/new.html.twig', array(
@@ -210,49 +186,50 @@ class LuckyController extends Controller {
     }
 
     /**
+     * Creates a form to create a Book entity.
+     *
+     * @param Buku $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Book $entity) {
+        $form = $this->createForm(new BookType(), $entity, array(
+            'action' => $this->generateUrl('lucky_upload'),
+            'method' => 'POST',
+            'attr' => array('role' => 'form'),
+        ));
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    /**
      * @Route("/lucky/upload")
      */
     public function uploadAction(Request $request) {
         $book = new Book();
-        $form = $this->createForm(new BookType(), $book);
+        $form = $this->createCreateForm($book);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded PDF file
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+      if ($form->isSubmitted() && $form->isValid()) {
             $file = $book->getBrochure();
-          
             // Generate a unique name for the file before saving it
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            foreach ($request->request->all() as $req) {
-
-                $book->setAuthor($req['author']);
-                $book->setName($req['name']);
-                $book->setNo($req['no']);
-                $book->setLanguage($req['language']);
-                $book->setPublisher($req['publisher']);
-                $book->setSummary($req['summary']);
-            }
-
             // Move the file to the directory where brochures are stored
             $file->move(
                     $this->getParameter('brochures_directory'), $fileName
             );
-
             // Update the 'brochure' property to store the PDF file name
             // instead of its contents
             $book->setBrochure($fileName);
-              $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($book);
             // actually executes the queries (i.e. the INSERT query)
             $em->flush();
             // ... persist the $book variable or any other work
-
             return $this->redirectToRoute('lucky_show');
         }
-
         return $this->render('lucky/newu.html.twig', array(
                     'form' => $form->createView(),
+                    'entity' => $book,
         ));
     }
 
