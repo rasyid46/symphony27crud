@@ -5,3 +5,13 @@ custom_buku_buku:
 custom_buku_homepage:
     path:     /hello/{name}
     defaults: { _controller: CustomBukuBundle:Default:index }
+
+login:
+    path: /login
+    defaults: {_controller: CustomBukuBundle:Security:login}
+
+login_check:
+    path: /login_check
+
+logout:
+    pattern: /logout

@@ -3,11 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/wgs/symphony27crud/app/Resources/views/lucky/show.html.twig</file>
-            <file>file:/D:/xampp/htdocs/wgs/symphony27crud/app/Resources/views/lucky/newu.html.twig</file>
             <file>file:/D:/xampp/htdocs/wgs/symphony27crud/app/Resources/views/base.html.twig</file>
-            <file>file:/D:/xampp/htdocs/wgs/symphony27crud/src/AppBundle/Form/BookType.php</file>
-            <file>file:/D:/xampp/htdocs/wgs/symphony27crud/app/Resources/views/lucky/new.html.twig</file>
             <file>file:/D:/xampp/htdocs/wgs/symphony27crud/src/AppBundle/Controller/LuckyController.php</file>
             <file>file:/D:/xampp/htdocs/wgs/symphony27crud/src/Custom/BukuBundle/Controller/BukuController.php</file>
         </group>

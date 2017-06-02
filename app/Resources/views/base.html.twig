@@ -11,29 +11,34 @@
     </head>
     <body>
         <div class="container">
-        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="{{ path('lucky_show') }}">Book Inventor</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ path('lucky_show') }}">Home</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-            {% block body %}{% endblock %}
-            {% block javascripts %}
-                <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-                <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
-            {% endblock %}
-        </div>
-    </body>
+            <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ path('lucky_show') }}">Book Inventor</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="{{ path('lucky_show') }}">Home</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('logout')}}">Logout</a></li>
+                                {% else %}
+                                <li class="active"><a href="{{ path('login') }}">Login</a></li>
+                                {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+        {% endblock %}
+    </div>
+</body>
 </html>

@@ -1,32 +1,40 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Book list <span><a class="btn btn-primary btn-lg" href="{{ path('buku_new') }}" rold="button">
+    <h1>Book list {% if is_granted('ROLE_ADMIN')%}<span><a class="btn btn-primary btn-lg" href="{{ path('buku_new') }}" rold="button">
                 Create a new entry
-    </a></span></h1>
+    </a></span>{% endif %}</h1>
 
     <div class="table-responsive"> 
         <table class="records_list table table-striped table-bordered">
             <thead>
                 <tr>
+                    {% if is_granted('ROLE_ADMIN')%}
                     <th>Id</th>
+                    {% endif %}
                     <th>Name</th>
                     <th>Author</th>
                     <th>Language</th>
                     <th>Publisher</th>
                     <th>Summary</th>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <th>Actions</th>
+                    {% endif %}
+
                 </tr>
             </thead>
             <tbody>
             {% for entity in entities %}
                 <tr>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <td><a href="{{ path('buku_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    {% endif %}
                     <td>{{ entity.name }}</td>
                     <td>{{ entity.author }}</td>
                     <td>{{ entity.language }}</td>
                     <td>{{ entity.publisher }}</td>
                     <td>{{ entity.summary }}</td>
+                    {% if is_granted('ROLE_ADMIN')%}
                     <td style="text-align: center; vertical-align: middle;">
                     <ul style="list-style-type: none;">
                         <li>
@@ -37,12 +45,12 @@
                         </li>
                     </ul>
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
         
-    
-
+   
     {% endblock %}
