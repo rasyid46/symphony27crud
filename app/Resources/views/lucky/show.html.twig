@@ -2,10 +2,12 @@
 {% block body -%}
     <div class="container">
     <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
+            <h1>List Book</h1>
             <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
         </div>
         <a class="btn btn-primary" href="{{ path('lucky_upload') }}" role="button">Tambah</a>
+        <br/>
+        <br/>
          <div class="table-responsive">
         <table class="records_list table table-striped table-bordered">
             <tbody>
@@ -27,6 +29,9 @@
                             <a href="{{ asset('uploads/pdf/' ~ item.brochure) }}">View brochure (PDF)</a>
                         </td>
                         <td>
+                            <a class="btn btn-success" href="{{ path('lucky_detail', { 'id': item.id }) }}">
+                                Detail
+                            </a>
                             <a class="btn btn-info"href="{{ path('lucky_edit', { 'id': item.id }) }}" >
                                 Edit
                             </a>

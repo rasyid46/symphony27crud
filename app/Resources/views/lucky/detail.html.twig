@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+{% block body -%}
+    <div class="container">
+        <div class="starter-template">
+            <h1>Detail Data {{item.name}}</h1>
+            <a class="btn btn-primary" href="{{ path('lucky_show') }}" role="button">Kembali</a>
+        </div>
+        <br/>
+        <div class="table-responsive">
+            <table class="record_properties table">
+                <tbody>
+                    <tr>
+                        <th>no</th>
+                        <td>{{ item.no }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nama</th>
+                        <td>{{ item.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Author</th>
+                        <td>{{ item.author }}</td>
+                    </tr>
+                    <tr>
+                        <th>Language</th>
+                        <td>{{ item.language }}</td>
+                    </tr>
+                    <tr>
+                        <th>Publisher</th>
+                        <td>{{ item.publisher }}</td>
+                    </tr>
+                    <tr>
+                        <th>Summary</th>
+                        <td>{{ item.summary }}</td>
+                    </tr>
+                    <tr>
+                        <th>BROSUR</th>
+                        <td>
+                            <a href="{{ asset('uploads/pdf/' ~ item.brochure) }}">View brochure (PDF)</a>
+                        </td>
+                    </tr>
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div><!-- /.container -->
+{% endblock %}

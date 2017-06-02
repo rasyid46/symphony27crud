@@ -44,7 +44,17 @@ class LuckyController extends Controller {
                     'entities' => $entities,
         ));
     }
-
+    /**
+     * @Route("/lucky/detail")
+     *
+     */
+    public function detailAction($id) {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Book'); 
+        $entities = $repository->find(1);
+        return $this->render('lucky/detail.html.twig', array(
+                    'item' => $entities,
+        ));
+    }
     /**
      * @Route("/lucky/create")
      */

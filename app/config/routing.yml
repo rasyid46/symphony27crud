@@ -12,17 +12,18 @@ lucky_edit:
     
 lucky_delete:
     path:     /{id}/delete
-    defaults: { _controller: "AppBundle:Lucky:delete" }
-    
+    defaults: { _controller: "AppBundle:Lucky:delete" }  
 lucky_new:
     path:     /new
     defaults: { _controller: "AppBundle:Lucky:new" }
 lucky_upload:
     path:     /upload
-    defaults: { _controller: "AppBundle:Lucky:upload" }    
-    
+    defaults: { _controller: "AppBundle:Lucky:upload" }        
 lucky_show:
     path:     /show/
-    defaults: { _controller: "AppBundle:Lucky:show" } 
+    defaults: { _controller: "AppBundle:Lucky:show" }
+lucky_detail:
+    path:     /{id}/detail
+    defaults: { _controller: "AppBundle:Lucky:detail" }    
     
  
